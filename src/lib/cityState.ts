@@ -3,9 +3,11 @@
  * and whether the place is asleep, working or awake.
  *
  * The sun solver is the only expensive part (a few hundred trig calls per
- * place), so daylight times are memoised per calendar day and the whole
- * snapshot per minute. A board of 40 cities therefore costs nothing on the
- * 1-second ticks.
+ * place), and that is only the sunrise/sunset sampling — so those are memoised
+ * per calendar day and the snapshot itself per second, the cadence the digits
+ * actually tick at. Keying the snapshot any coarser hands back a stale
+ * wall-clock second and the :SS on every card freezes for the rest of the
+ * minute.
  */
 
 import type { City } from '../data/cities'
@@ -69,9 +71,12 @@ function asLocalHour(ms: number | null, start: number): number | null {
 }
 
 export function cityState(city: City, at: number, refTz: string): CityState {
-  const minute = Math.floor(at / 60_000)
+  // One bucket per wall-clock second, matching `zoneSnapshot`'s own cache: two
+  // asks inside the same second are the same picture, and the first ask of the
+  // next second must recompute or the clock stops moving.
+  const second = Math.floor(at / 1000)
   const hit = stateCache.get(city.id)
-  if (hit && hit.key === minute) return hit.value
+  if (hit && hit.key === second) return hit.value
 
   const snap = zoneSnapshot(city.tz, at)
   const refSnap = zoneSnapshot(refTz, at)
@@ -114,7 +119,7 @@ export function cityState(city: City, at: number, refTz: string): CityState {
     },
   }
   if (stateCache.size > 1024) stateCache.clear()
-  stateCache.set(city.id, { key: minute, value })
+  stateCache.set(city.id, { key: second, value })
   return value
 }
 
