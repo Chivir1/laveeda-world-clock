@@ -1,9 +1,29 @@
 {
   "name": "laveeda-world-clock",
   "private": true,
+  "license": "MIT",
+  "author": "Chivir1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chivir1/laveeda-world-clock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chivir1/laveeda-world-clock/issues"
+  },
+  "keywords": [
+    "world-clock",
+    "time-zones",
+    "iana",
+    "timezone",
+    "pwa",
+    "offline",
+    "dst",
+    "sunrise",
+    "scheduling"
+  ],
   "version": "0.1.0",
   "type": "module",
-  "description": "Laveeda — a live tracker for every city and every time zone on Earth. Web app, installable on mobile.",
+  "description": "Laveeda \u2014 a live tracker for every city and every time zone on Earth. Web app, installable on mobile.",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
@@ -13,7 +33,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "data": "node scripts/gen-zones.mjs"
+    "data": "node scripts/gen-zones.mjs",
+    "check": "node scripts/validate-data.mjs",
+    "verify": "npm run typecheck && npm run check && npm test"
   },
   "dependencies": {
     "react": "^18.3.1",

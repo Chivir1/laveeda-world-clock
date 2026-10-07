@@ -66,6 +66,7 @@ npm run dev          # vite dev server on 0.0.0.0:5173
 npm run test         # 60 tests: time engine, sun solver, search, prefs, mounted UI in jsdom
 npm run typecheck
 npm run check        # validates the city catalogue against the runtime's tz database
+npm run verify       # typecheck + check + test, in one go (this is what CI runs)
 npm run build && npm run preview   # production build, service worker included
 ```
 
@@ -152,5 +153,21 @@ and a `tzdata` version readout — which needs a runtime that exposes it.
 
 ## Licence
 
-None chosen yet. If you want this to be reusable, add MIT or Apache-2.0; if it is a product, add
-“all rights reserved” and skip the file.
+MIT — see [LICENSE](LICENSE). Use it, fork it, sell a hosted version of it, ship it inside a
+device; you only have to keep the copyright and permission notice in all copies or substantial
+portions of the Software.
+
+In practical terms:
+
+- **Everything in this repository is MIT**, including the city catalogue and notes in `src/data/`,
+  the icon artwork, the deep-link format and this README.
+- **The name “Laveeda” and its icon are not part of the grant.** MIT covers the software, not a
+  brand. Fork it freely — call it something else. The only exception is a straight rehost of this
+  repository, which is exactly what a *world clock* needs to be able to say it is.
+- **Nothing here needs third-party permission.** Time-zone names, offsets and coordinates are
+  facts, not protected material; `tzdata` itself is public domain, and the app reads it from your
+  browser's `Intl` rather than shipping a copy. The solar model is a plain implementation of
+  standard astronomical formulas.
+- **No warranty.** That is not boilerplate here: this computes times for people in 13 fractional
+  offsets and 78 zones that move their clocks. Check it against your own device before you tell
+  someone their flight time.
