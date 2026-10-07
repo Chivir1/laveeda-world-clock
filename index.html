@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Laveeda — live time in every city and time zone</title>
+    <meta
+      name="description"
+      content="Laveeda is a live world clock: every city, every time zone, every moment. Compare working hours, see day and night across the planet, and install it on your phone."
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#070a13" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f6fb" media="(prefers-color-scheme: light)" />
+
+    <!-- Installable-on-mobile (iOS Safari) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Laveeda" />
+    <meta name="application-name" content="Laveeda" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+
+    <!-- Social preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Laveeda — World Clock" />
+    <meta
+      property="og:description"
+      content="Live time for every city and every time zone on Earth. Install it on your phone."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+      html {
+        background: #070a13;
+        color-scheme: dark light;
+      }
+      @media (prefers-color-scheme: light) {
+        html {
+          background: #f5f6fb;
+        }
+      }
+      #boot {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font: 500 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #7c87a3;
+      }
+      @media (prefers-color-scheme: light) {
+        #boot {
+          color: #6a7391;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="boot">Laveeda</div>
+    <noscript>
+      <div style="padding: 2rem; font: 15px/1.6 system-ui; color: #e8ecf5">
+        Laveeda runs entirely on your device — it needs JavaScript to tick. Enable it, or open
+        any clock while you are here.
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
