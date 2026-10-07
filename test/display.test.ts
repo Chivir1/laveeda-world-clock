@@ -164,4 +164,18 @@ describe('city state', () => {
   it('is stable when the same instant is requested twice', () => {
     expect(cityState(tokyo, at, 'UTC')).toBe(cityState(tokyo, at + 500, 'UTC'))
   })
+
+  it('advances the seconds inside one minute instead of freezing the first tick', () => {
+    const base = Date.UTC(2026, 5, 21, 3, 30, 5) // 12:30:05 in Tokyo
+    const first = cityState(tokyo, base, 'UTC')
+    expect(first.snap.second).toBe(5)
+
+    const later = cityState(tokyo, base + 4_000)
+    expect(later.snap.second).toBe(9)
+    expect(later).not.toBe(first)
+    expect(later.localMs).toBe((12 * 3600 + 30 * 60 + 9) * 1000)
+
+    // …while repeated reads of the same second still share one object.
+    expect(cityState(tokyo, base + 4_500, 'UTC')).toBe(later)
+  })
 })
